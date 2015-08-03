@@ -3,8 +3,8 @@ from django.db import models
 
 
 class User(models.Model):
-    """ User """
-    facebookid = models.BigIntegerField(verbose_name='FacebookID')
+    """ User with required fields """
+    facebookid = models.BigIntegerField(verbose_name='FacebookID', unique=True)
     name = models.CharField(max_length=200, verbose_name='Nome')
     username = models.CharField(max_length=200, verbose_name='Username')
     gender = models.CharField(max_length=1, verbose_name='Sexo')

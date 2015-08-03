@@ -30,6 +30,8 @@ DEFAULT_APPS = (
 
 LIBS_APPS = (
     'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
 )
 
 MY_APPS = (
@@ -47,6 +49,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 ROOT_URLCONF = 'config.urls'
@@ -69,6 +73,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_CREDENTIALS = True
+
+APPEND_SLASH = False
+
+# CORS_ORIGIN_WHITELIST = [
+#     'localhost',
+# ]
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -150,8 +163,13 @@ EMAIL_SUBJECT_PREFIX = '[Facebookapp]'
 EMAIL_USE_TLS = True
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-    'PAGE_SIZE': 10
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
 
 # -------------------------------------------------------------
